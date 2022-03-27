@@ -738,7 +738,7 @@ function installOpenVPN() {
 			openssl dhparam -out dh.pem $DH_KEY_SIZE
 		fi
 
-		./easyrsa build-server-full "$SERVER_NAME" nopass
+		EASYRSA_CERT_EXPIRE=3650 ./easyrsa build-server-full "$SERVER_NAME" nopass
 		EASYRSA_CRL_DAYS=3650 ./easyrsa gen-crl
 
 		case $TLS_SIG in
@@ -1103,11 +1103,11 @@ function newClient() {
 		cd /etc/openvpn/easy-rsa/ || return
 		case $PASS in
 		1)
-			./easyrsa build-client-full "$CLIENT" nopass
+			EASYRSA_CERT_EXPIRE=3650 ./easyrsa build-client-full "$CLIENT" nopass
 			;;
 		2)
 			echo "⚠️ You will be asked for the client password below ⚠️"
-			./easyrsa build-client-full "$CLIENT"
+			EASYRSA_CERT_EXPIRE=3650 ./easyrsa build-client-full "$CLIENT"
 			;;
 		esac
 		echo "Client $CLIENT added."
