@@ -875,8 +875,8 @@ ifconfig-pool-persist ipp.txt" >>/etc/openvpn/server.conf
 		echo 'push "redirect-gateway def1 bypass-dhcp"' >> /etc/openvpn/server.conf
 	fi
 	# Allow resolve private dns records: https://steamforge.net/wiki/index.php/How_to_configure_OpenVPN_to_resolve_local_DNS_&_hostnames#Server_Mod
-	if [ ${#DONAIN_NAMES[@]} -gt 0 ]; then
-		for name in ${DONAIN_NAMES[@]}; do
+	if [ ${#DOMAIN_NAMES[@]} -gt 0 ]; then
+		for name in ${DOMAIN_NAMES[@]}; do
 			echo "Adding $name to dhcp-option...";
 			echo "push \"dhcp-option DOMAIN ${name}\"" >> /etc/openvpn/server.conf
 		done
