@@ -637,6 +637,10 @@ function installOpenVPN() {
 			PUBLIC_IP=$(curl --retry 5 --retry-connrefused -4 https://ifconfig.co)
 		fi
 		ENDPOINT=${ENDPOINT:-$PUBLIC_IP}
+
+		if [[ -z "${VPN_NETWORK// }" ]]; then
+            VPN_NETWORK=10.8.0
+        fi
 	fi
 
 	# Run setup questions first, and set other variables if auto-install
