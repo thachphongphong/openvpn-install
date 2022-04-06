@@ -862,7 +862,8 @@ ifconfig-pool-persist ipp.txt" >>/etc/openvpn/server.conf
 	esac
 	# Allow split-tunnel via custom CIDR blocks (ie. 192.168.0.0/24)
 	if [ ${#TUNNEL_CIDR_BLOCKS[@]} -gt 0 ]; then
-		for cidr in "${TUNNEL_CIDR_BLOCKS[@]}"; do
+		# shellcheck disable=SC2068
+		for cidr in ${TUNNEL_CIDR_BLOCKS[@]}; do
 			echo "Adding $cidr to routed subnets...";
 			ROUTE_IP=$(echo $cidr | cut -d"/" -f1)
 			ROUTE_BITS=$(echo $cidr | cut -d"/" -f2)
@@ -879,7 +880,8 @@ ifconfig-pool-persist ipp.txt" >>/etc/openvpn/server.conf
 	fi
 	# Allow resolve private dns records: https://steamforge.net/wiki/index.php/How_to_configure_OpenVPN_to_resolve_local_DNS_&_hostnames#Server_Mod
 	if [ ${#DOMAIN_NAMES[@]} -gt 0 ]; then
-		for name in "${DOMAIN_NAMES[@]}"; do
+		# shellcheck disable=SC2068
+		for name in ${DOMAIN_NAMES[@]}; do
 			echo "Adding $name to dhcp-option...";
 			echo "push \"dhcp-option DOMAIN ${name}\"" >> /etc/openvpn/server.conf
 		done
